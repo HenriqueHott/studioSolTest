@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+
+
+        <TextView
+            android:id="@+id/attemptResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/ledDisplayLeft"
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/ledDisplayMiddle"
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/ledDisplayRight"
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/newMatch"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/newMatch" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/inputGuess"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/sendButton"
+            android:layout_marginBottom="20dp"
+            android:ems="10"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/sendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="24dp"
+            android:enabled="false"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/send" />
+
+        <TextView
+            android:id="@+id/attemptsDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@id/inputGuess"
+            android:layout_alignBottom="@id/inputGuess"
+            android:layout_marginBottom="-10dp"
+            android:text="aaaaaa" />
+    </RelativeLayout>
+
+</LinearLayout>

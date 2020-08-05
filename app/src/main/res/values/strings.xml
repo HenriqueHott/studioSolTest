@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">StudioSolTest</string>
+    <string name="send">Enviar</string>
+    <string name="inputGuess">Digite o palpite</string>
+    <string name="newMatch">Nova Partida</string>
+    <string name="itsLess">É menor</string>
+    <string name="itsGreater">É maior</string>
+    <string name="hit">Acertou!</string>
+    <string name="lostGame">Fim de jogo :(</string>
+    <string name="error">Erro</string>
+    <string name="ledError">Erro Interno ao receber a tentativa</string>
+    <string name="randBadRequest">Apenas digitos podem ser utilizados</string>
+    <string name="connectionError">Erro ao obter resposta do servidor. Você está conectado?</string>
+    <string name="invalidNumberInput">Você só pode inserir números com até 3 algarismos</string>
+</resources>
