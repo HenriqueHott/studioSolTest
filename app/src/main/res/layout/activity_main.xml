@@ -7,6 +7,7 @@
 
 
     <LinearLayout
+        android:id="@+id/container1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="8"
@@ -22,33 +23,6 @@
             android:textStyle="bold"
             android:textSize="16sp"
             />
-
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-
-            <ImageView
-                android:id="@+id/ledDisplayLeft"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:visibility="gone"/>
-
-            <ImageView
-                android:id="@+id/ledDisplayMiddle"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:visibility="gone"/>
-
-            <ImageView
-                android:id="@+id/ledDisplayRight"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:visibility="gone"/>
-        </LinearLayout>
 
         <Button
             android:id="@+id/newMatch"

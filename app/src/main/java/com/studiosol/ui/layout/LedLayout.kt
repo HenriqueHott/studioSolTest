@@ -1,31 +1,32 @@
 package com.studiosol.ui.layout
 
 import android.content.Context
-import android.util.AttributeSet
-import android.view.Display
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.updateLayoutParams
 import com.studiosol.R
-import com.studiosol.utils.showToastMessage
+
 
 class LedLayout(
     context: Context,
-    attr: AttributeSet,
+    layoutParams: ViewGroup.LayoutParams,
     ledWidth: Int = 100,
     ledHeight: Int = 100
-) : LinearLayout(context, attr) {
+) : LinearLayout(context) {
 
     private val ledList = listOf(ImageView(context), ImageView(context), ImageView(context))
+    private val scale = context.resources.displayMetrics.density
 
     init {
         this.orientation = HORIZONTAL
+        this.layoutParams = layoutParams
         ledList.forEach {
-            val params = it.layoutParams
-            params.height = ledHeight
-            params.width = ledWidth
+            val params = ViewGroup.LayoutParams(
+                (ledWidth * scale + 0.5f).toInt(),
+                (ledHeight * scale + 0.5f).toInt()
+            )
             it.layoutParams = params
             it.visibility = View.GONE
             this.addView(it)
@@ -43,6 +44,12 @@ class LedLayout(
 
         num.toString().forEachIndexed { i, a ->
             setDisplay(Character.getNumericValue(a), ledList[i])
+        }
+    }
+
+    fun turnOffDisplay() {
+        ledList.forEach {
+            it.visibility = View.GONE
         }
     }
 
@@ -142,5 +149,4 @@ class LedLayout(
             }
         }
     }
-
 }
