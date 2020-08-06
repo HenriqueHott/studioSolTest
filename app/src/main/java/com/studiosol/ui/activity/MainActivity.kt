@@ -105,6 +105,7 @@ class MainActivity : AppCompatActivity() {
             {
 
                 val statusCode = it.networkResponse?.statusCode
+                println(statusCode)
                 if (statusCode == null) {
                     ledLayout.turnOffDisplay()
                     setEndGame(2)

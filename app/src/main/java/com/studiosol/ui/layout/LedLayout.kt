@@ -9,7 +9,6 @@ import androidx.core.content.res.ResourcesCompat
 import com.studiosol.R
 import com.studiosol.exception.InvalidNumberException
 
-
 class LedLayout(
     context: Context,
     layoutParams: ViewGroup.LayoutParams,
