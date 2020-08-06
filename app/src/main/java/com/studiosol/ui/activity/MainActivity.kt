@@ -2,11 +2,7 @@ package com.studiosol.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
-import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.core.view.marginTop
+import android.view.*
 import com.studiosol.Constants
 import com.studiosol.R
 import com.studiosol.service.RandService
@@ -36,6 +32,17 @@ class MainActivity : AppCompatActivity() {
         setSendButtonListener()
         setNewMatchListener()
 
+        // setting app bar
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.appmenu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return super.onOptionsItemSelected(item)
     }
 
     private fun attachLedLayout() {
