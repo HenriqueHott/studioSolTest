@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.res.ResourcesCompat
 import com.studiosol.R
+import com.studiosol.exception.InvalidNumberException
 
 
 class LedLayout(
@@ -39,9 +40,10 @@ class LedLayout(
 
     fun setNumber(num:Int) {
         if (num < 0 || num > 999) {
-            throw Exception("Invalid Number")
+            throw InvalidNumberException("Invalid number")
         }
 
+        turnOffDisplay()
         num.toString().forEachIndexed { i, a ->
             setDisplay(Character.getNumericValue(a), ledList[i])
         }

@@ -10,9 +10,9 @@ import com.android.volley.toolbox.Volley
 import com.studiosol.utils.SingletonHolder
 import org.json.JSONObject
 
-open class GenericService (context: Context) {
+open class BaseService (context: Context) {
 
-    companion object : SingletonHolder<GenericService, Context>(::GenericService)
+    companion object : SingletonHolder<BaseService, Context>(::BaseService)
 
     private val requestQueue: RequestQueue by lazy {
         // applicationContext is key, it keeps you from leaking the
@@ -39,7 +39,7 @@ open class GenericService (context: Context) {
             Response.Listener(listener),
             Response.ErrorListener(onError)
         )
-        this.addToRequestQueue(jsonObjectRequest)
+        addToRequestQueue(jsonObjectRequest)
     }
 
 }

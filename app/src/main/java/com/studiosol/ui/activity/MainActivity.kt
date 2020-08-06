@@ -1,22 +1,26 @@
 package com.studiosol.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
-import com.studiosol.Constants
+import androidx.appcompat.app.AppCompatActivity
+import com.studiosol.MAX_ATTEMPTS
+import com.studiosol.MAX_LIMIT_STANDARD
+import com.studiosol.MIN_LIMIT_STANDARD
 import com.studiosol.R
+import com.studiosol.exception.InvalidNumberException
 import com.studiosol.service.RandService
 import com.studiosol.ui.layout.LedLayout
 import com.studiosol.utils.showToastMessage
 import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.NumberFormatException
+
 
 class MainActivity : AppCompatActivity() {
 
     private val ledLayout: LedLayout by lazy {
         val params = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT)
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
 
         LedLayout(this, params)
     }
@@ -28,12 +32,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         attachLedLayout()
+
         // setting listeners
         setSendButtonListener()
         setNewMatchListener()
-
-        // setting app bar
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -57,7 +59,6 @@ class MainActivity : AppCompatActivity() {
     private fun setSendButtonListener() {
         sendButton.setOnClickListener {
             try {
-                ledLayout.turnOffDisplay()
                 val guess = inputGuess.text.toString().toInt()
                 ledLayout.setNumber(guess)
 
@@ -81,6 +82,8 @@ class MainActivity : AppCompatActivity() {
 
             } catch (nfe: NumberFormatException) {
                 showToastMessage(this, resources.getString(R.string.randBadRequest))
+            } catch (ine: InvalidNumberException) {
+                showToastMessage(this, resources.getString(R.string.invalidNumberInput))
             }
         }
     }
@@ -92,30 +95,37 @@ class MainActivity : AppCompatActivity() {
     private fun setMagicNumber() {
         newMatch.visibility = View.GONE
         RandService.getInstance(this).getRandomNum(
+            MIN_LIMIT_STANDARD,
+            MAX_LIMIT_STANDARD,
             {
                 magicNumber = it.getInt("value")
                 println(magicNumber!!)
                 setNewGame()
             },
             {
-                when (val statusCode = it.networkResponse?.statusCode) {
+
+                val statusCode = it.networkResponse?.statusCode
+                if (statusCode == null) {
+                    ledLayout.turnOffDisplay()
+                    setEndGame(2)
+                    showToastMessage(this, resources.getString(R.string.connectionError))
+                    return@getRandomNum
+                }
+
+                when (statusCode) {
                     in 400..499 -> {
-                        if (statusCode != null) {
-                            ledLayout.setNumber(statusCode)
-                        }
+                        ledLayout.setNumber(statusCode)
                         setEndGame(2)
                         showToastMessage(this, resources.getString(R.string.randBadRequest))
                     }
                     in 500..999 -> {
-                        if (statusCode != null) {
-                            ledLayout.setNumber(statusCode)
-                        }
+                        ledLayout.setNumber(statusCode)
                         setEndGame(2)
                     }
                     else -> {
                         ledLayout.turnOffDisplay()
                         setEndGame(2)
-                        showToastMessage(this, resources.getString(R.string.connectionError))
+                        showToastMessage(this, resources.getString(R.string.hamenoDorime))
                     }
                 }
             }
@@ -123,7 +133,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setNewGame() {
-        ledLayout.turnOffDisplay()
+        ledLayout.setNumber(0)
         attemptResult.text = ""
         sendButton.isEnabled = true
         newMatch.visibility = View.GONE
@@ -151,7 +161,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setAttempsText() {
-        val newText = "$attemps/${Constants.MAX_ATTEMPTS}"
+        val newText = "$attemps/${MAX_ATTEMPTS}"
         attemptsDisplay.text = newText
     }
 
