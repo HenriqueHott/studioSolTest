@@ -9,10 +9,11 @@
     <string name="hit">Acertou!</string>
     <string name="lostGame">Fim de jogo :(</string>
     <string name="error">Erro</string>
-    <string name="ledError">Erro Interno ao receber a tentativa</string>
-    <string name="randBadRequest">Erro com os dados do aplicativo, por favor realize novamente a instalação.(Poêm os valores nas constantes direito lá só hehe. Ou sera que eu fiz a requisição errado? Dorime...Hameno)</string>
+    <string name="ledError">Erro Interno ao receber a tentativa.</string>
+    <string name="randBadRequest">Erro com os dados do aplicativo, por favor realize novamente a instalação.</string>
     <string name="connectionError">Erro ao obter resposta do servidor. Você está conectado?</string>
-    <string name="internalServerError">Servidor indisponível, por favor entre em contanto com o suporte</string>
-    <string name="invalidNumberInput">Você só pode inserir números com até 3 algarismos</string>
-    <string name="hamenoDorime">🤔🤔🤔 Dorime…Dorime…Hameno 🤔🤔🤔</string>
+    <string name="internalServerError">Servidor indisponível, por favor entre em contanto com o suporte.</string>
+    <string name="invalidNumberInput">Você só pode inserir números com até 3 dígitos.</string>
+    <string name="noNumberInput">Apenas números podem ser inseridos.</string>
+    <string name="amenoDorime">🤔🤔🤔 Dorime…Dorime…ameno 🤔🤔🤔</string>
 </resources>

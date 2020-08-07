@@ -1,3 +1,6 @@
+/**
+ * @author: Henrique Ribeiro Hott
+ */
 package com.studiosol.ui.layout
 
 import android.content.Context
@@ -9,6 +12,24 @@ import androidx.core.content.res.ResourcesCompat
 import com.studiosol.R
 import com.studiosol.exception.InvalidNumberException
 
+/**
+ *
+ * Classe de implementação do layout para os displays de leds de 7 segmentos.
+ *
+ * Descrição: São utilizada 3 ImageViews para representação de cada display. Para a representar
+ * os dígitos, foi utilizado um conjunto de imagens vetoriais contendo a visualização de cada um
+ * dos 10 dígitos existentes, tais imagens são atribuídas dinamicamente aos displays conforme o
+ * número requisitado para exibição.
+ *
+ * O arquivo xml das imagens usadas nos displays podem ser encontradas em app/res/drawable.
+ *
+ * @param [context] Contexto em que o layout será criado.
+ * @param [layoutParams] Conjunto de parâmetros relativos a posição dentro a ViewGroup sobre
+ * a qual o layout será criado.
+ * @param [ledHeight] Tamanho(int) em DP dos segmentos.
+ * @param [ledWidth] Largura(int) em DP dos segmentos.
+ *
+ */
 class LedLayout(
     context: Context,
     layoutParams: ViewGroup.LayoutParams,
@@ -17,15 +38,18 @@ class LedLayout(
 ) : LinearLayout(context) {
 
     private val ledList = listOf(ImageView(context), ImageView(context), ImageView(context))
-    private val scale = context.resources.displayMetrics.density
+    private val scale = context.resources.displayMetrics.density // Escala usada para conversão da medida padrão em pixels para dp
 
     init {
+        // Configurações iniciais do layout
         this.orientation = HORIZONTAL
         this.layoutParams = layoutParams
+
+        // Configuração das imagesView e inserção das mesmas no layout
         ledList.forEach {
             val params = ViewGroup.LayoutParams(
                 (ledWidth * scale + 0.5f).toInt(),
-                (ledHeight * scale + 0.5f).toInt()
+                (ledHeight * scale + 0.5f).toInt()  // conversão pixels para DP
             )
             it.layoutParams = params
             it.visibility = View.GONE
@@ -33,10 +57,21 @@ class LedLayout(
         }
     }
 
+    /**
+     * Exibe um número no layout
+     * @param [num] número a ser exibido
+     * @throws InvalidNumberException
+     * @throws NumberFormatException
+     */
     fun setNumber(num:String) {
         setNumber(num.toInt())
     }
 
+    /**
+     * Exibe um número layout
+     * @param [num] número a ser exibido(Máximo de 3 dígitos)
+     * @throws InvalidNumberException
+     */
     fun setNumber(num:Int) {
         if (num < 0 || num > 999) {
             throw InvalidNumberException("Invalid number")
@@ -48,106 +83,28 @@ class LedLayout(
         }
     }
 
+    /**
+     * Retira a visualização  atual dos displays
+     */
     fun turnOffDisplay() {
         ledList.forEach {
             it.visibility = View.GONE
         }
     }
 
+    /**
+     * Atribui a um dado display o dígito que será exibido
+     * @param: [num] Dígito a ser exibido no display
+     * @param [display] ImageView contendo o display a ser atribuído
+     */
     private fun setDisplay(num: Int, display: ImageView) {
-        println(num)
         display.visibility = View.VISIBLE
-        when (num) {
-            0 -> {
-                display.setImageDrawable(
-                    ResourcesCompat.getDrawable(
-                        resources,
-                        R.drawable.led_0,
-                        null
-                    )
-                )
-            }
-            1 -> {
-                display.setImageDrawable(
-                    ResourcesCompat.getDrawable(
-                        resources,
-                        R.drawable.led_1,
-                        null
-                    )
-                )
-            }
-            2 -> {
-                display.setImageDrawable(
-                    ResourcesCompat.getDrawable(
-                        resources,
-                        R.drawable.led_2,
-                        null
-                    )
-                )
-            }
-            3 -> {
-                display.setImageDrawable(
-                    ResourcesCompat.getDrawable(
-                        resources,
-                        R.drawable.led_3,
-                        null
-                    )
-                )
-            }
-            4 -> {
-                display.setImageDrawable(
-                    ResourcesCompat.getDrawable(
-                        resources,
-                        R.drawable.led_4,
-                        null
-                    )
-                )
-            }
-            5 -> {
-                display.setImageDrawable(
-                    ResourcesCompat.getDrawable(
-                        resources,
-                        R.drawable.led_5,
-                        null
-                    )
-                )
-            }
-            6 -> {
-                display.setImageDrawable(
-                    ResourcesCompat.getDrawable(
-                        resources,
-                        R.drawable.led_6,
-                        null
-                    )
-                )
-            }
-            7 -> {
-                display.setImageDrawable(
-                    ResourcesCompat.getDrawable(
-                        resources,
-                        R.drawable.led_7,
-                        null
-                    )
-                )
-            }
-            8 -> {
-                display.setImageDrawable(
-                    ResourcesCompat.getDrawable(
-                        resources,
-                        R.drawable.led_8,
-                        null
-                    )
-                )
-            }
-            else -> {
-                display.setImageDrawable(
-                    ResourcesCompat.getDrawable(
-                        resources,
-                        R.drawable.led_9,
-                        null
-                    )
-                )
-            }
-        }
+        display.setImageDrawable(
+            ResourcesCompat.getDrawable(
+                resources,
+                resources.getIdentifier("led_$num", "drawable", context.packageName),
+                null
+            )
+        )
     }
 }

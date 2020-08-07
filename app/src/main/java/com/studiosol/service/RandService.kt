@@ -1,3 +1,6 @@
+/**
+ * @author: Henrique Ribeiro Hott
+ */
 package com.studiosol.service
 
 import android.content.Context
@@ -7,10 +10,19 @@ import com.studiosol.RAND_ENDPOINT
 import com.studiosol.utils.SingletonHolder
 import org.json.JSONObject
 
+/**
+ * Classe para criação do service responsável por se comunicar com RandApi.
+ */
 class RandService(context: Context): BaseService(context) {
 
+    // Objeto que fornerce implementação do getInstance para a classe
     companion object : SingletonHolder<RandService, Context>(::RandService)
 
+    /**
+     * Requisição do serviço para gerar um número aleatório da RandAPI.
+     * @param [min] Limite inferior do número aleatório gerado.
+     * @param [max] Limite superior para o número  aleatório gerado.
+     */
     fun getRandomNum(
         min: Int,
         max: Int,

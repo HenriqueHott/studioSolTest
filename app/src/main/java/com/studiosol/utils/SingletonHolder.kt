@@ -1,3 +1,10 @@
+/**
+ * @author Christophe Beyls
+ * Classe que encapsula o comportamento genérico de um Singleton fornecendo para outras
+ * classes a implmentação do padrão por meio de uma instancia sua.
+ * Fonte: https://medium.com/@BladeCoder/kotlin-singletons-with-argument-194ef06edd9e
+ *
+ */
 package com.studiosol.utils
 
 open class SingletonHolder<out T: Any, in A>(creator: (A) -> T) {

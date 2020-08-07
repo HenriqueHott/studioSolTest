@@ -1,3 +1,7 @@
+/**
+ * @author Henrique Ribeiro Hott
+ * Módulo para a declaração das constantes do projeto.
+ */
 package com.studiosol
 
 const val API_URL = "https://us-central1-ss-devops.cloudfunctions.net"
