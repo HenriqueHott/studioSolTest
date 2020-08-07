@@ -176,7 +176,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     else -> {
                         ledLayout.turnOffDisplay()
-                        showToastMessage(this, resources.getString(R.string.hamenoDorime)) // status > 1000?
+                        showToastMessage(this, resources.getString(R.string.amenoDorime)) // status > 1000?
                     }
                 }
 

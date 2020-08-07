@@ -4,13 +4,16 @@
 package com.studiosol.ui.layout
 
 import android.content.Context
+import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.marginBottom
 import com.studiosol.R
 import com.studiosol.exception.InvalidNumberException
+import com.studiosol.utils.convertDpToPixels
 
 /**
  *
@@ -38,7 +41,6 @@ class LedLayout(
 ) : LinearLayout(context) {
 
     private val ledList = listOf(ImageView(context), ImageView(context), ImageView(context))
-    private val scale = context.resources.displayMetrics.density // Escala usada para conversão da medida padrão em pixels para dp
 
     init {
         // Configurações iniciais do layout
@@ -47,10 +49,12 @@ class LedLayout(
 
         // Configuração das imagesView e inserção das mesmas no layout
         ledList.forEach {
-            val params = ViewGroup.LayoutParams(
-                (ledWidth * scale + 0.5f).toInt(),
-                (ledHeight * scale + 0.5f).toInt()  // conversão pixels para DP
+            val params = MarginLayoutParams(
+                convertDpToPixels(ledWidth, context),
+                convertDpToPixels(ledHeight, context)
             )
+            val marginX = convertDpToPixels(-12, context)
+            params.setMargins(marginX,0, marginX, 0)
             it.layoutParams = params
             it.visibility = View.GONE
             this.addView(it)
@@ -71,6 +75,7 @@ class LedLayout(
      * Exibe um número layout
      * @param [num] número a ser exibido(Máximo de 3 dígitos)
      * @throws InvalidNumberException
+     * @throws NumberFormatException
      */
     fun setNumber(num:Int) {
         if (num < 0 || num > 999) {
